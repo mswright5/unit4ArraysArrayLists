@@ -3,12 +3,17 @@
 public class CharMatrix
 {
   // Fields:
-
   // Constructor: creates a grid with dimensions rows, cols,
   // and fills it with spaces
   public CharMatrix(int rows, int cols)
   {
-    ...
+    String[] col = new String[cols];
+    for (int i = 0; i < cols; i++)
+    {
+        col[i] = " ";
+    }
+    
+    //int[][] 
   }
 
   // Constructor: creates a grid with dimensions rows , cols ,

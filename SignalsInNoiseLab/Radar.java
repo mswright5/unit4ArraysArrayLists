@@ -1,4 +1,5 @@
 
+
 /**
  * The model for radar scan and accumulator
  * 
@@ -17,6 +18,8 @@ public class Radar
     // location of the monster
     private int monsterLocationRow;
     private int monsterLocationCol;
+    private int monsterDX;
+    private int monsterDY;
 
     // probability that a cell will trigger a false detection (must be >= 0 and < 1)
     private double noiseFraction;
@@ -30,7 +33,7 @@ public class Radar
      * @param   rows    the number of rows in the radar grid
      * @param   cols    the number of columns in the radar grid
      */
-    public Radar(int rows, int cols)
+    public Radar(int rows, int cols, int dx, int dy, int startRow, int startCol)
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
@@ -40,9 +43,11 @@ public class Radar
         //  setMonsterLocation method
         monsterLocationRow = (int)(Math.random() * rows);
         monsterLocationCol = (int)(Math.random() * cols);
+        monsterDX = dx;
+        monsterDY = dy;
         
         noiseFraction = 0.05;
-        numScans= 0;
+        numScans = 0;
     }
     
     /**
@@ -62,6 +67,7 @@ public class Radar
         
         // detect the monster
         currentScan[monsterLocationRow][monsterLocationCol] = true;
+        updateMonsterLocation();
         
         // inject noise into the grid
         injectNoise();
@@ -97,6 +103,12 @@ public class Radar
         
         // update the radar grid to show that something was detected at the specified location
         currentScan[row][col] = true;
+    }
+    
+    public void updateMonsterLocation()
+    {
+        monsterLocationRow += monsterDX;
+        monsterLocationCol += monsterDY;
     }
     
      /**

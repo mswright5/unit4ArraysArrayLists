@@ -32,7 +32,7 @@ public class RadarViewer
         final int monsterCol = in.nextInt();
         
         Radar radar = new Radar(ROWS, COLS, DX, DY, monsterRow, monsterCol);
-        radar.setNoiseFraction(0.10);
+        radar.setNoiseFraction(0.00);
         radar.scan();
         
         JFrame frame = new JFrame();
@@ -53,14 +53,19 @@ public class RadarViewer
         
         // perform 100 scans of the radar wiht a slight pause between each
         // after each scan, instruct the Java Run-Time to redraw the window
-        for(int i = 0; i < 100; i++)
-        {
+        while(radar.scan() == false){
             Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
-            
-            radar.scan();
-            
             frame.repaint();
         }
+            
+        //for(int i = 0; i < 100; i++)
+        //{
+        //    Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
+            
+        //    if(radar.scan() == true){break;}
+            
+        //    frame.repaint();
+        // }
     }
 
 }

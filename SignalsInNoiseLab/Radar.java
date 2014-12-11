@@ -41,8 +41,8 @@ public class Radar
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
-        monsterLocationRow = (int)(Math.random() * rows);
-        monsterLocationCol = (int)(Math.random() * cols);
+        monsterLocationRow = startRow;
+        monsterLocationCol = startCol;
         monsterDX = dx;
         monsterDY = dy;
         
@@ -52,9 +52,9 @@ public class Radar
     
     /**
      * Performs a scan of the radar. Noise is injected into the grid and the accumulator is updated.
-     * 
+     * @return  returns true if monster in no longer in the grid
      */
-    public void scan()
+    public boolean scan()
     {
         // zero the current scan grid
         for(int row = 0; row < currentScan.length; row++)
@@ -66,8 +66,11 @@ public class Radar
         }
         
         // detect the monster
-        currentScan[monsterLocationRow][monsterLocationCol] = true;
-        updateMonsterLocation();
+        if (monsterLocationRow >= 100 || monsterLocationCol >= 100){return true;}
+        else{
+            currentScan[monsterLocationRow][monsterLocationCol] = true;
+            updateMonsterLocation();
+        }
         
         // inject noise into the grid
         injectNoise();
@@ -86,6 +89,7 @@ public class Radar
         
         // keep track of the total number of scans
         numScans++;
+        return false;
     }
 
     /**

@@ -9,10 +9,11 @@
 public class Radar
 {
     
-    // stores whether each cell triggered detection for the current scan of the radar
+    // stores whether each cell triggered detection for the current scan of the radar and keeps a copy of the old one
     private boolean[][] currentScan;
+    private boolean[][] prevScan;
     
-    // value of each cell is incremented for each scan in which that cell triggers detection 
+    // keeps track of changes in dx and dy for the detection of the monster
     private int[][] accumulator;
     
     // location of the monster
@@ -37,7 +38,7 @@ public class Radar
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
-        accumulator = new int[rows][cols]; // elements will be set to 0
+        accumulator = new int[10][10]; // elements will be set to 0
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
@@ -56,7 +57,15 @@ public class Radar
      */
     public boolean scan()
     {
-        // zero the current scan grid
+        // copy and zero the current scan grid
+        for(int row = 0; row < currentScan.length; row++)
+        {
+            for(int col = 0; col < currentScan[0].length; col++)
+            {
+                if (currentScan[row][col] = true){prevScan[row][col] = true;}
+            }
+        }
+        
         for(int row = 0; row < currentScan.length; row++)
         {
             for(int col = 0; col < currentScan[0].length; col++)
@@ -76,13 +85,14 @@ public class Radar
         injectNoise();
         
         // udpate the accumulator
-        for(int row = 0; row < currentScan.length; row++)
-        {
-            for(int col = 0; col < currentScan[0].length; col++)
-            {
-                if(currentScan[row][col] == true)
-                {
-                   accumulator[row][col]++;
+        for(int row = 0; row < currentScan.length; row++){
+            for(int col = 0; col < currentScan[0].length; col++){
+                if (currentScan[row][col] == true){
+                    for (int prevRow = 0; prevRow < prevScan.length; prevRow++){
+                        for (int prevCol = 0; prevCol < prevScan[0].length; prevCol++){
+                            accumulator[row - prevRow][col -prevCol]+=1;
+                        }
+                    }
                 }
             }
         }

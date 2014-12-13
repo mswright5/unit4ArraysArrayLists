@@ -57,7 +57,11 @@ public class RadarViewer
             Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
             frame.repaint();
         }
-            
+           
+        System.out.println("The monster's velocity is: ");
+        int[] velocity = radar.getMonsterVelocity();
+        System.out.println("DX: " + velocity[0]);
+        System.out.println("DY: " + velocity[1]);
         //for(int i = 0; i < 100; i++)
         //{
         //    Thread.sleep(100); // sleep 100 milliseconds (1/10 second)

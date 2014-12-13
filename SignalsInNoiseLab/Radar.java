@@ -58,11 +58,10 @@ public class Radar
     public boolean scan()
     {
         // copy and zero the current scan grid
-        for(int row = 0; row < currentScan.length; row++)
-        {
-            for(int col = 0; col < currentScan[0].length; col++)
-            {
-                if (currentScan[row][col] = true){prevScan[row][col] = true;}
+        for(int row = 0; row < currentScan.length; row++){
+            for(int col = 0; col < currentScan[0].length; col++){
+                if (currentScan[row][col] == true){prevScan[row][col] = true;}
+                else{prevScan[row][col] = false;}
             }
         }
         
@@ -74,7 +73,7 @@ public class Radar
             }
         }
         
-        // detect the monster
+        // update the monster and quits when it exits the grid
         if (monsterLocationRow >= 100 || monsterLocationCol >= 100){return true;}
         else{
             currentScan[monsterLocationRow][monsterLocationCol] = true;
@@ -190,6 +189,24 @@ public class Radar
     public int getNumScans()
     {
         return numScans;
+    }
+    
+    public int[] getMonsterVelocity()
+    {
+        int DX = 0;
+        int DY = 0;
+        int count = 0;
+        for (int i = 0; i < accumulator.length; i++){
+            for(int j = 0; j < accumulator[i].length; j++){
+                if (accumulator[i][j] > count){
+                    count = accumulator[i][j];
+                    DX = i;
+                    DY = j;
+                }
+            }
+        }
+        int[] velocity = {DX,DY};
+        return velocity;
     }
     
     /**

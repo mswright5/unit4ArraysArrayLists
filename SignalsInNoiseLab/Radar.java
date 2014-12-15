@@ -39,6 +39,7 @@ public class Radar
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
         accumulator = new int[10][10]; // elements will be set to 0
+        prevScan = new boolean[rows][cols]; //elements will be set to false
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method
@@ -74,7 +75,7 @@ public class Radar
         }
         
         // update the monster and quits when it exits the grid
-        if (monsterLocationRow >= 100 || monsterLocationCol >= 100){return true;}
+        if (monsterLocationRow >= 100 || monsterLocationCol >= 100 || monsterLocationRow < 0 || monsterLocationCol < 0){return true;}
         else{
             currentScan[monsterLocationRow][monsterLocationCol] = true;
             updateMonsterLocation();
@@ -89,7 +90,14 @@ public class Radar
                 if (currentScan[row][col] == true){
                     for (int prevRow = 0; prevRow < prevScan.length; prevRow++){
                         for (int prevCol = 0; prevCol < prevScan[0].length; prevCol++){
-                            accumulator[row - prevRow][col -prevCol]+=1;
+                            if (prevScan[prevRow][prevCol] == true){
+                                if(row < prevRow){
+                                    accumulator[prevRow - row][prevCol - col] += 1;
+                                }
+                                else{
+                                    accumulator[row - prevRow + 5][col - prevCol + 5] += 1;
+                                }
+                            }
                         }
                     }
                 }

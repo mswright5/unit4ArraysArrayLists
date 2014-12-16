@@ -40,7 +40,6 @@ public class RadarTest
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        System.out.println(dx + " " + dy);
         assert(dx == 2);
         assert(dy == 3);
     }
@@ -72,7 +71,6 @@ public class RadarTest
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        System.out.println(dx + " " + dy);
         assert(dx == -4);
         assert(dy == -1);
     }
@@ -98,13 +96,11 @@ public class RadarTest
         // perform as many scans of the radar with a slight pause between each
         // after each scan, instruct the Java Run-Time to redraw the window
         while(radar.scan() == false){
-
         }
         
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        System.out.println(dx + " " + dy);
         assert(dx == -5);
         assert(dy == 5);
     }

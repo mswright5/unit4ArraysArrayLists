@@ -38,7 +38,7 @@ public class Radar
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
-        accumulator = new int[10][10]; // elements will be set to 0
+        accumulator = new int[12][12]; // elements will be set to 0
         prevScan = new boolean[rows][cols]; //elements will be set to false
         
         // randomly set the location of the monster (can be explicity set through the
@@ -58,7 +58,7 @@ public class Radar
      */
     public boolean scan()
     {
-        // copy and zero the current scan grid
+        //copy the current scan grid
         for(int row = 0; row < currentScan.length; row++){
             for(int col = 0; col < currentScan[0].length; col++){
                 if (currentScan[row][col] == true){prevScan[row][col] = true;}
@@ -66,6 +66,7 @@ public class Radar
             }
         }
         
+        //zero the current scan grid
         for(int row = 0; row < currentScan.length; row++)
         {
             for(int col = 0; col < currentScan[0].length; col++)
@@ -93,7 +94,7 @@ public class Radar
                         if (row - 5 < 0 || col - 5 < 0 || row + 5 > 100 || col + 5 > 100){continue;}
                         for (int prevCol = col - 5; prevCol < col + 5; prevCol++){ //I HAD COL < COL + 5 WHYY LOGIC ERRORS WHYY
                             if (prevScan[prevRow][prevCol] == true){
-                                accumulator[prevRow - row + 5][prevCol -col + 5] += 1;
+                                accumulator[row - prevRow + 5][col - prevCol + 5] += 1;
                             }
                         }
                     }
@@ -125,6 +126,7 @@ public class Radar
     
     public void updateMonsterLocation()
     {
+        //moves the monster the specified dx and dy
         monsterLocationRow += monsterDX;
         monsterLocationCol += monsterDY;
     }
@@ -198,9 +200,10 @@ public class Radar
     
     public int[] getMonsterVelocity()
     {
+        //sifts through the accumulator and finds the combination of the highest dx and dy
         int DX = 0;
         int DY = 0;
-        int count = 0;
+        int count = 0; //keeps track of the highest integer combo
         for (int i = 0; i < accumulator.length; i++){
             for(int j = 0; j < accumulator[i].length; j++){
                 if (accumulator[i][j] > count){

@@ -51,8 +51,8 @@ public class RadarViewer
         //  component.
         frame.setVisible(true);
         
-        // perform 100 scans of the radar wiht a slight pause between each
-        // after each scan, instruct the Java Run-Time to redraw the window
+        // Perform as many scans as long as the monster is
+        // within the bounds of the grid, instruct the Java Run-Time to redraw the window
         while(radar.scan() == false){
             Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
             frame.repaint();

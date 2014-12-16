@@ -64,14 +64,6 @@ public class RadarViewer
         int dy = velocity[1] - 5;
         System.out.println("DX: " + dx);
         System.out.println("DY: " + dy);
-        //for(int i = 0; i < 100; i++)
-        //{
-        //    Thread.sleep(100); // sleep 100 milliseconds (1/10 second)
-            
-        //    if(radar.scan() == true){break;}
-            
-        //    frame.repaint();
-        // }
     }
 
 }

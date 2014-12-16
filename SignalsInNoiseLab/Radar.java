@@ -38,7 +38,7 @@ public class Radar
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
-        accumulator = new int[10][10]; // elements will be set to 0
+        accumulator = new int[11][11]; // elements will be set to 0
         prevScan = new boolean[rows][cols]; //elements will be set to false
         
         // randomly set the location of the monster (can be explicity set through the
@@ -88,15 +88,11 @@ public class Radar
         for(int row = 0; row < currentScan.length; row++){
             for(int col = 0; col < currentScan[0].length; col++){
                 if (currentScan[row][col] == true){
-                    for (int prevRow = 0; prevRow < prevScan.length; prevRow++){
-                        for (int prevCol = 0; prevCol < prevScan[0].length; prevCol++){
-                            if (prevScan[prevRow][prevCol] == true){
-                                if(row < prevRow){
-                                    accumulator[prevRow - row][prevCol - col] += 1;
-                                }
-                                else{
-                                    accumulator[row - prevRow + 5][col - prevCol + 5] += 1;
-                                }
+                    for (int prevRow = row - 5; prevRow < row + 5; prevRow++){
+                        //if (row - 5 < 0 || col - 5 < 0){continue;}
+                        for (int prevCol = col - 5; col < col + 5; prevCol++){
+                            if (prevScan[row][col] == true){
+                                accumulator[prevRow + 5][prevCol + 5] += 1;
                             }
                         }
                     }

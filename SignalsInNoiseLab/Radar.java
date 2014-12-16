@@ -38,7 +38,7 @@ public class Radar
     {
         // initialize instance variables
         currentScan = new boolean[rows][cols]; // elements will be set to false
-        accumulator = new int[11][11]; // elements will be set to 0
+        accumulator = new int[10][10]; // elements will be set to 0
         prevScan = new boolean[rows][cols]; //elements will be set to false
         
         // randomly set the location of the monster (can be explicity set through the
@@ -89,10 +89,11 @@ public class Radar
             for(int col = 0; col < currentScan[0].length; col++){
                 if (currentScan[row][col] == true){
                     for (int prevRow = row - 5; prevRow < row + 5; prevRow++){
-                        //if (row - 5 < 0 || col - 5 < 0){continue;}
-                        for (int prevCol = col - 5; col < col + 5; prevCol++){
-                            if (prevScan[row][col] == true){
-                                accumulator[prevRow + 5][prevCol + 5] += 1;
+                        //Don't run any following code if index out of bounds
+                        if (row - 5 < 0 || col - 5 < 0 || row + 5 > 100 || col + 5 > 100){continue;}
+                        for (int prevCol = col - 5; prevCol < col + 5; prevCol++){ //I HAD COL < COL + 5 WHYY LOGIC ERRORS WHYY
+                            if (prevScan[prevRow][prevCol] == true){
+                                accumulator[prevRow - row + 5][prevCol -col + 5] += 1;
                             }
                         }
                     }
@@ -209,6 +210,7 @@ public class Radar
                 }
             }
         }
+        //Correct the velocity, as all were recorded with an extra 5 for computer indexing purposes
         int[] velocity = {DX,DY};
         return velocity;
     }

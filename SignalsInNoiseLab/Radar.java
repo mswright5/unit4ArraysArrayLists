@@ -85,14 +85,15 @@ public class Radar
         // inject noise into the grid
         injectNoise();
         
+        
+        
         // udpate the accumulator
         for(int row = 0; row < currentScan.length; row++){
             for(int col = 0; col < currentScan[0].length; col++){
                 if (currentScan[row][col] == true){
-                    for (int prevRow = row - 5; prevRow < row + 5; prevRow++){
-                        //Don't run any following code if index out of bounds
-                        if (row - 5 < 0 || col - 5 < 0 || row + 5 > 100 || col + 5 > 100){continue;}
-                        for (int prevCol = col - 5; prevCol < col + 5; prevCol++){ //I HAD COL < COL + 5 WHYY LOGIC ERRORS WHYY
+                    for (int prevRow = row - 5; prevRow <= row + 5; prevRow++){
+                        for (int prevCol = col - 5; prevCol <= col + 5; prevCol++){
+                            if (prevRow < 0 || prevCol < 0 || prevRow >= 100 || prevCol >= 100){continue;}
                             if (prevScan[prevRow][prevCol] == true){
                                 accumulator[row - prevRow + 5][col - prevCol + 5] += 1;
                             }
@@ -127,8 +128,8 @@ public class Radar
     public void updateMonsterLocation()
     {
         //moves the monster the specified dx and dy
-        monsterLocationRow += monsterDX;
-        monsterLocationCol += monsterDY;
+        monsterLocationRow += monsterDY;
+        monsterLocationCol += monsterDX;
     }
     
      /**
@@ -208,8 +209,8 @@ public class Radar
             for(int j = 0; j < accumulator[i].length; j++){
                 if (accumulator[i][j] > count){
                     count = accumulator[i][j];
-                    DX = i;
-                    DY = j;
+                    DX = j;
+                    DY = i;
                 }
             }
         }

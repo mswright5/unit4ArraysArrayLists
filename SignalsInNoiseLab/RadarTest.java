@@ -27,7 +27,7 @@ public class RadarTest
         final int monsterCol = 0;
         
         Radar radar = new Radar(ROWS, COLS, DX, DY, monsterRow, monsterCol);
-        radar.setNoiseFraction(0.00);
+        radar.setNoiseFraction(0.01);
         radar.scan();
         
         
@@ -40,8 +40,8 @@ public class RadarTest
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        assert(dx == 2);
-        assert(dy == 3);
+        assertEquals(dx , 2);
+        assertEquals(dy , 3);
     }
     
     @Test
@@ -55,24 +55,23 @@ public class RadarTest
         final int DY = -1;
         
         final int monsterRow = 50;
-        final int monsterCol = 50;
+        final int monsterCol = 90;
         
         Radar radar = new Radar(ROWS, COLS, DX, DY, monsterRow, monsterCol);
-        radar.setNoiseFraction(0.00);
+        radar.setNoiseFraction(0.01);
         radar.scan();
         
         
         // perform as many scans of the radar with a slight pause between each
         // after each scan, instruct the Java Run-Time to redraw the window
         while(radar.scan() == false){
-
         }
         
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        assert(dx == -4);
-        assert(dy == -1);
+        assertEquals(dx , -4);
+        assertEquals(dy , -1);
     }
     
     @Test
@@ -82,14 +81,14 @@ public class RadarTest
         final int ROWS = 100;
         final int COLS = 100;
         
-        final int DX = -5;
-        final int DY = 5;
+        final int DX = -3;
+        final int DY = 3;
         
-        final int monsterRow = 50;
-        final int monsterCol = 50;
+        final int monsterRow = 10;
+        final int monsterCol = 90;
         
         Radar radar = new Radar(ROWS, COLS, DX, DY, monsterRow, monsterCol);
-        radar.setNoiseFraction(0.00);
+        radar.setNoiseFraction(0.01);
         radar.scan();
         
         
@@ -101,8 +100,8 @@ public class RadarTest
         int[] velocity = radar.getMonsterVelocity();
         int dx = velocity[0] - 5;
         int dy = velocity[1] - 5;
-        assert(dx == -5);
-        assert(dy == 5);
+        assertEquals(-3 , dx);
+        assertEquals(3 , dy);
     }
         
 }
